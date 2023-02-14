@@ -1,5 +1,18 @@
+type Transcation = 
+ record {
+   amount: nat;
+   typeOfTranscation: text;
+ };
+type List = 
+ opt record {
+       nat;
+       List;
+     };
 service : {
   checkBalance: () -> (nat) query;
+  temp: () -> (vec Transcation) query;
   topUp: (nat) -> () oneway;
+  viewAllAmounts: () -> (List) query;
+  viewAllTranscation: () -> (nat) query;
   withdraw: (nat) -> () oneway;
 }

@@ -1,5 +1,12 @@
+type List = 
+ opt record {
+       nat;
+       List;
+     };
 service : {
   checkBalance: () -> (nat) query;
   topUp: (nat) -> () oneway;
+  viewAllAmounts: () -> (List) query;
+  viewAllTranscation: () -> (nat) query;
   withdraw: (nat) -> () oneway;
 }

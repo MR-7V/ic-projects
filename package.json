@@ -37,5 +37,10 @@
     "last 2 firefox version",
     "last 2 safari version",
     "last 2 edge version"
-  ]
+  ],
+  "dependencies": {
+    "express": "^4.18.2",
+    "path": "^0.12.7",
+    "vite": "^4.1.1"
+  }
 }

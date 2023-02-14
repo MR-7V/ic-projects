@@ -1,5 +1,7 @@
 import { dbank } from "../../declarations/dbank";
 
+
+
 window.addEventListener("load", async function() {
   //console.log("Finished loading");
   //update();
