@@ -1,26 +1,142 @@
 <!DOCTYPE html>
 <html>
-
   <head>
     <title>DBank</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link type="text/css" rel="stylesheet" href="main.css" />
+    <link type="text/css" rel="stylesheet" href="styles.css" />
+
   </head>
 
   <body>
+    <header class="navbar">
+      <a href="#page1" onclick="showPage('page1'); " class="active">Add Money</a>
+      <a href="#page2" onclick="showPage('page2'); ">Fund transfer</a>
+      <a href="#page3" onclick="showPage('page3'); ">Transactions</a>
+    </header>
+
+    <main id="page1" class="show">
     <div class="container">
-      <!img src="dbank_logo.png" alt="DBank logo" width="100"/>
-      <h1>Current Balance: $<span id="value">234</span></h1>
-      <div class="divider"></div>
-      <form action="#">
-      <h2>Amount to Top Up</h2>
-      <input id="input-amount" type="number" step="0.01" min=0 name="topUp" value=""/>
-      <h2>Amount to Withdraw</h2>
-      <input id="withdrawal-amount" type="number" name="withdraw" step="0.01" min=0 value=""/>
-      <input id="submit-btn" type="submit" value="Finalise Transaction" />
+      <h1 class="heading text-center">Balance: $<span class="current-amount" id="value"></span></h1>
+      <form class="transaction-form"  id="add-amount" action="#">
+      <h2 class="text-center">Amount to Top Up</h2>
+      <label for="input-amount">Amount</label>
+      <input id="input-amount" class="input" type="number" step="1" min=0  minlength="1" name="topUp"  placeholder="enter amount to transfer..." value=""/>
+      <label for="input-name">Name</label>
+      <input type="text" id="input-name" class="input" minlength="3" name="name"  placeholder="enter fundraiser name..." />
+      <label for="input-email">Email</label>
+      <input type="email" id="input-email" class="input"  name="email" placeholder="enter email..." />
+      <label for="input-phone">Phone</label>
+      <input type="tel" id="input-phone"class="input" name="phone" size="10" placeholder="enter phone number..." />
+      <label for="input-description">Description</label>
+      <textarea id="input-description" name="description" placeholder="transaction description here ..."></textarea>
+      <input id="submit-btn" type="submit"class="input button"  value="submit" />
     </form>
     </div>
-  </body>
 
+  </main>
+    <main id="page2">
+      <div class="container">
+        <h1 class="heading text-center">Balance: $<span class="current-amount" id="value2"></span></h1>
+      <h2 class="text-center">Amount to Deposit</h2>
+      <form  class="transaction-form" action="#" id="send-amount">
+        <label for="transfer-amount">Amount</label>
+        <input id="transfer-amount" class="input" type="number"  min=0  minlength="1" name="transferAmount" value=""/>
+        <label for="receiver-name">Reciver Name</label>
+        <input type="text" id="receiver-name" class="input" minlength="3" name="name" placeholder="enter the name of recipient...." />
+        <label for="receiver-phone">Reciver Phone</label>
+        <input type="tel" id="receiver-phone" class="input" name="phone" size="10" placeholder="enter the recipient phone..." />
+        <label for="receiver-email">Reciver Email</label>
+        <input id="receiver-email" type="email" name="email" minlength="4" maxlength="30" placeholder="enter email here..." />
+        <label for="transfer-description">Description</label>
+        <textarea id="transfer-description" name="description" placeholder="transaction description here..."></textarea>
+        <input id="transfer-btn" type="submit" class="button" value="submit"  />
+      </form>
+      </div>  
+    
+  </main>
+    
+    <main id="page3">
+      <div class="table">
+
+          <input type="search" class="filter-input" id="search" onkeyup="searchTable()" placeholder="Search for transaction...">
+        
+        
+        <div class="--flex--space">
+
+          <div >
+            <label for="filter">Filter:</label>
+
+           
+            <select id="filter">
+              <option value="All">All Transactions</option>
+              <option value="credit">credit</option>
+              <option value="debit">debit</option>
+            </select>
+          </div>
+
+          <h1 class="heading text-center">Balance: $<span class="current-amount" id="value2"></span></h1>
+          
+          <button title="sort" class="sort"><img src="https://res.cloudinary.com/dcduqfohf/image/upload/v1680451865/sort_rawbx7.svg" alt="sort" />Sort</button>
+        </div>
+        
+        <table id="transactions-table"> 
+          <thead>
+          <tr>
+            <th>Transaction id</th>
+            <th>Type of transaction</th>
+            <th>description</th>
+            <th>amount</th>
+            <th>Name</th> 
+            <th>email</th>
+            <th>Phone NO</th>
+            <th>createdAt</th>
+          </tr>
+          <thead>
+            <tbody>
+              <!---populate the data with table-->
+            </tbody>
+        </table>
+      </div>
+    </main>
+
+    <script>
+      // Show the first page by default
+      function showPage(pageId) {
+  // Hide all pages
+  document.getElementById('page1').style.display = 'none';
+  document.getElementById('page2').style.display = 'none';
+  document.getElementById('page3').style.display = 'none';
+  
+  // Show the selected page
+  document.getElementById(pageId).style.display = 'block';
+  
+  // Set the active link
+  var navbarLinks = document.getElementsByClassName('navbar')[0].getElementsByTagName('a');
+  for (var i = 0; i < navbarLinks.length; i++) {
+      if (navbarLinks[i].getAttribute('href') == '#' + pageId) {
+          navbarLinks[i].classList.add('active');
+      } else {
+          navbarLinks[i].classList.remove('active');
+      }
+  }
+
+  // Store the ID of the currently active page in session storage
+  sessionStorage.setItem('activePageId', pageId);
+}
+
+// Get the ID of the previously active page from session storage
+var activePageId = sessionStorage.getItem('activePageId');
+
+// Show the previously active page, if available
+if (activePageId) {
+  showPage(activePageId);
+} else {
+  // Show the default page if no previously active page is available
+  showPage('page1');
+}
+
+    </script>
+  </body>
 </html>

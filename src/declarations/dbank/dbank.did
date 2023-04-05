@@ -1,18 +1,18 @@
 type Transcation = 
  record {
    amount: nat;
+   createdAt: int;
+   descriptionOfTranscation: text;
+   emailAddress: text;
+   phoneNumber: text;
+   transactionID: text;
+   transactionRecipient: text;
    typeOfTranscation: text;
  };
-type List = 
- opt record {
-       nat;
-       List;
-     };
 service : {
   checkBalance: () -> (nat) query;
-  temp: () -> (vec Transcation) query;
-  topUp: (nat) -> () oneway;
-  viewAllAmounts: () -> (List) query;
+  returnTransactions: () -> (vec Transcation) query;
+  topUp: (nat, text, text, text, text, text) -> () oneway;
   viewAllTranscation: () -> (nat) query;
-  withdraw: (nat) -> () oneway;
+  withdraw: (nat, text, text, text, text, text) -> () oneway;
 }

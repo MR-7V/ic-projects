@@ -1,17 +1,28 @@
 export const idlFactory = ({ IDL }) => {
-  const List = IDL.Rec();
   const Transcation = IDL.Record({
     'typeOfTranscation' : IDL.Text,
+    'transactionRecipient' : IDL.Text,
+    'createdAt' : IDL.Int,
+    'descriptionOfTranscation' : IDL.Text,
+    'emailAddress' : IDL.Text,
+    'phoneNumber' : IDL.Text,
     'amount' : IDL.Nat,
+    'transactionID' : IDL.Text,
   });
-  List.fill(IDL.Opt(IDL.Tuple(IDL.Nat, List)));
   return IDL.Service({
     'checkBalance' : IDL.Func([], [IDL.Nat], ['query']),
-    'temp' : IDL.Func([], [IDL.Vec(Transcation)], ['query']),
-    'topUp' : IDL.Func([IDL.Nat], [], ['oneway']),
-    'viewAllAmounts' : IDL.Func([], [List], ['query']),
+    'returnTransactions' : IDL.Func([], [IDL.Vec(Transcation)], ['query']),
+    'topUp' : IDL.Func(
+        [IDL.Nat, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text],
+        [],
+        ['oneway'],
+      ),
     'viewAllTranscation' : IDL.Func([], [IDL.Nat], ['query']),
-    'withdraw' : IDL.Func([IDL.Nat], [], ['oneway']),
+    'withdraw' : IDL.Func(
+        [IDL.Nat, IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text],
+        [],
+        ['oneway'],
+      ),
   });
 };
 export const init = ({ IDL }) => { return []; };
